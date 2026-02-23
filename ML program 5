@@ -1,0 +1,54 @@
+mplementation of Multiple Linear regression for house price prediction using sklearn
+# Step 1: Import Libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.metrics import mean_squared_error, r2_score
+
+# Step 2: Create Dataset
+data = {
+    "House_Size": [1000, 1500, 2000, 2500, 3000],
+    "Bedrooms": [2, 3, 4, 4, 5],
+    "Age": [5, 10, 15, 20, 25],
+    "Price": [200000, 250000, 300000, 350000, 400000]
+}
+df = pd.DataFrame(data)
+
+# Step 3: Split Features and Target
+X = df[['House_Size', 'Bedrooms', 'Age']]  # Independent Variables
+y = df['Price']                            # Dependent Variable
+
+# Step 4: Split into Training and Testing Set
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+# Step 5: Train the Model
+model = LinearRegression()
+model.fit(X_train, y_train)
+
+# Step 6: Make Predictions
+y_pred = model.predict(X_test)
+
+# Step 7: Model Evaluation
+mse = mean_squared_error(y_test, y_pred)
+r2 = r2_score(y_test, y_pred)
+
+print(f"Mean Squared Error: {mse:.2f}")
+print(f"R² Score: {r2:.2f}")
+
+# Step 8: Predict New House Price
+new_house = [[2200, 4, 10]]  # 2200 sq ft, 4 Bedrooms, 10 Years Old
+predicted_price = model.predict(new_house)
+print(f"Predicted Price: ${predicted_price[0]:.2f}")
+     
+Mean Squared Error: 0.00
+R² Score: nan
+Predicted Price: $319993.00
+
+
+print("Coefficients:", model.coef_)
+print("Intercept:", model.intercept_)
+     
+Coefficients: [9.99900010e+01 4.54747351e-12 9.99900010e-01]
+Intercept: 100004.99950005003
