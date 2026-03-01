@@ -1,0 +1,56 @@
+# Implementation of Logistic Regression using sklearn
+
+# Step 1: Import Libraries
+import numpy as np
+import pandas as pd
+import matplotlib.pyplot as plt
+
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LogisticRegression
+from sklearn.metrics import accuracy_score, confusion_matrix, classification_report
+from sklearn.datasets import load_breast_cancer
+
+# Step 2: Load Dataset
+# Using built-in Breast Cancer dataset
+data = load_breast_cancer()
+
+X = data.data      # Features
+y = data.target    # Target labels
+
+# Step 3: Split Dataset into Training and Testing sets
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42
+)
+
+# Step 4: Create Logistic Regression Model
+model = LogisticRegression(max_iter=5000)
+
+# Step 5: Train the Model
+model.fit(X_train, y_train)
+
+# Step 6: Make Predictions
+y_pred = model.predict(X_test)
+
+# Step 7: Evaluate the Model
+print("Accuracy:", accuracy_score(y_test, y_pred))
+print("\nConfusion Matrix:\n", confusion_matrix(y_test, y_pred))
+print("\nClassification Report:\n", classification_report(y_test, y_pred))
+
+OUT PUT :
+
+
+Accuracy: 0.9766081871345029
+
+Confusion Matrix:
+ [[ 61   2]
+ [  2 106]]
+
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       0.97      0.97      0.97        63
+           1       0.98      0.98      0.98       108
+
+    accuracy                           0.98       171
+   macro avg       0.97      0.97      0.97       171
+weighted avg       0.98      0.98      0.98       171
