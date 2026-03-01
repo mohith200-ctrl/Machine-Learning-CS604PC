@@ -55,6 +55,9 @@ plot_tree(best_model,
 plt.title("Decision Tree")
 plt.show()
 
+
+OUTPUT :
+
 Best Parameters: {'criterion': 'gini', 'max_depth': None, 'min_samples_leaf': 1, 'min_samples_split': 10}
 
 Accuracy: 1.0
