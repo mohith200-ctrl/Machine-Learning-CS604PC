@@ -1,0 +1,137 @@
+# Import required libraries
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+from sklearn.metrics import accuracy_score, classification_report, confusion_matrix
+from sklearn.linear_model import LogisticRegression
+from sklearn.neighbors import KNeighborsClassifier
+from sklearn.tree import DecisionTreeClassifier
+from sklearn.svm import SVC
+
+# Load Dataset (Iris)
+iris = load_iris()
+X = iris.data
+y = iris.target
+
+# Train-Test Split
+X_train, X_test, y_train, y_test = train_test_split(
+    X, y, test_size=0.3, random_state=42)
+
+# Feature Scaling
+scaler = StandardScaler()
+X_train = scaler.fit_transform(X_train)
+X_test = scaler.transform(X_test)
+
+# Dictionary of models
+models = {
+    "Logistic Regression": LogisticRegression(),
+    "KNN": KNeighborsClassifier(n_neighbors=5),
+    "Decision Tree": DecisionTreeClassifier(),
+    "SVM": SVC()
+}
+
+# Train and Evaluate Models
+results = {}
+
+for name, model in models.items():
+    model.fit(X_train, y_train)
+    y_pred = model.predict(X_test)
+    
+    acc = accuracy_score(y_test, y_pred)
+    results[name] = acc
+    
+    print("\n==============================")
+    print("Model:", name)
+    print("Accuracy:", acc)
+    print("Confusion Matrix:\n", confusion_matrix(y_test, y_pred))
+    print("Classification Report:\n", classification_report(y_test, y_pred))
+
+# Plotting Accuracy Comparison
+plt.figure()
+plt.bar(results.keys(), results.values())
+plt.title("Performance Comparison of Classification Algorithms")
+plt.ylabel("Accuracy")
+plt.xticks(rotation=45)
+plt.show()
+
+OUTPUT :
+
+==============================
+Model: Logistic Regression
+Accuracy: 1.0
+Confusion Matrix:
+ [[19  0  0]
+ [ 0 13  0]
+ [ 0  0 13]]
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        19
+           1       1.00      1.00      1.00        13
+           2       1.00      1.00      1.00        13
+
+    accuracy                           1.00        45
+   macro avg       1.00      1.00      1.00        45
+weighted avg       1.00      1.00      1.00        45
+
+
+==============================
+Model: KNN
+Accuracy: 1.0
+Confusion Matrix:
+ [[19  0  0]
+ [ 0 13  0]
+ [ 0  0 13]]
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        19
+           1       1.00      1.00      1.00        13
+           2       1.00      1.00      1.00        13
+
+    accuracy                           1.00        45
+   macro avg       1.00      1.00      1.00        45
+weighted avg       1.00      1.00      1.00        45
+
+
+==============================
+Model: Decision Tree
+Accuracy: 1.0
+Confusion Matrix:
+ [[19  0  0]
+ [ 0 13  0]
+ [ 0  0 13]]
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        19
+           1       1.00      1.00      1.00        13
+           2       1.00      1.00      1.00        13
+
+    accuracy                           1.00        45
+   macro avg       1.00      1.00      1.00        45
+weighted avg       1.00      1.00      1.00        45
+
+
+==============================
+Model: SVM
+Accuracy: 1.0
+Confusion Matrix:
+ [[19  0  0]
+ [ 0 13  0]
+ [ 0  0 13]]
+Classification Report:
+               precision    recall  f1-score   support
+
+           0       1.00      1.00      1.00        19
+           1       1.00      1.00      1.00        13
+           2       1.00      1.00      1.00        13
+
+    accuracy                           1.00        45
+   macro avg       1.00      1.00      1.00        45
+weighted avg       1.00      1.00      1.00        45
+
+
